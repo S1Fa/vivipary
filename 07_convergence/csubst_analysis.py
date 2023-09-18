@@ -4,7 +4,8 @@ from joblib import Parallel, delayed
 
 def run_csubst(aln_cds, rooted_tree, fg_text, cwd):
     command = f"csubst analyze --alignment_file {aln_cds} --rooted_tree_file {rooted_tree} --foreground {fg_text} --fg_exclude_wg no --cutoff_stat 'OCNany2spe,2.0|omegaCany2spe,5.0' --max_arity 5 --exhaustive_until 3"
-    subprocess.run(command, cwd=cwd, shell=True)
+    record = subprocess.run(command, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+
 
 def batch_run_csubst(aln_dir, tree_dir, fg_path, cwd_dir, og_list, n_jobs=2):
 
